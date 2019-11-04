@@ -16,6 +16,9 @@ on post-fs
     rm /persist/bluetooth/.bt_nv.bin
     rmdir /persist/bluetooth
 
+on early-init
+    exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules audio_apr audio_wglink audio_adsp_loader audio_q6_pdr audio_q6_notifier audio_q6 audio_usf audio_native audio_pinctrl_wcd audio_pinctrl_lpi audio_swr audio_platform audio_hdmi audio_wcd_spi audio_stub audio_digital_cdc audio_analog_cdc audio_msm_sdw audio_wcd_cpe audio_cpe_lsm audio_wcd9335 audio_machine_sdm710
+
 on init
     # Boot time fs tune
     write /sys/block/mmcblk0/queue/iostats 0
@@ -27,6 +30,7 @@ on init
     write /sys/block/dm-1/queue/read_ahead_kb 2048
 
 on boot
+    insmod /vendor/lib/modules/qca_cld3_wlan.ko
     # WLAN MAC
     chown wifi wifi /sys/module/wlan/parameters/fwpath
     chown wifi wifi /sys/kernel/boot_wlan/boot_wlan

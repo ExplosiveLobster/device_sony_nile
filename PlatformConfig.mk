@@ -39,7 +39,7 @@ BOARD_KERNEL_CMDLINE += lpm_levels.sleep_disabled=1
 BOARD_KERNEL_CMDLINE += service_locator.enable=1
 
 # Serial console
-#BOARD_KERNEL_CMDLINE += earlycon=msm_serial_dm,0xc170000
+BOARD_KERNEL_CMDLINE += earlycon=msm_serial_dm,0xc170000
 
 TARGET_RECOVERY_WIPE := $(PLATFORM_COMMON_PATH)/rootdir/recovery.wipe
 TARGET_RECOVERY_FSTAB ?= $(PLATFORM_COMMON_PATH)/rootdir/vendor/etc/fstab.nile
@@ -61,9 +61,11 @@ WIFI_DRIVER_FW_PATH_P2P := "p2p"
 WIFI_DRIVER_FW_PATH_STA := "sta"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 TARGET_USES_ICNSS_QMI := true
-WIFI_DRIVER_STATE_CTRL_PARAM := "/sys/kernel/boot_wlan/boot_wlan"
-WIFI_DRIVER_STATE_OFF := 0
-WIFI_DRIVER_STATE_ON := 1
+# WIFI_DRIVER_STATE_CTRL_PARAM := "/sys/kernel/boot_wlan/boot_wlan"
+# WIFI_DRIVER_STATE_OFF := 0
+# WIFI_DRIVER_STATE_ON := 1
+WLAN_CHIPSET := qca_cld3
+
 
 # BT definitions for Qualcomm solution
 BOARD_HAVE_BLUETOOTH := true
@@ -110,3 +112,38 @@ BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 
 include device/sony/common/CommonConfig.mk
+
+PRODUCT_VENDOR_MOVE_ENABLED := true
+WIFI_DRIVER_INSTALL_TO_KERNEL_OUT := true
+
+BOARD_VENDOR_KERNEL_MODULES := \
+    $(KERNEL_MODULES_OUT)/audio_apr.ko \
+    $(KERNEL_MODULES_OUT)/audio_wglink.ko \
+    $(KERNEL_MODULES_OUT)/audio_q6_pdr.ko \
+    $(KERNEL_MODULES_OUT)/audio_q6_notifier.ko \
+    $(KERNEL_MODULES_OUT)/audio_adsp_loader.ko \
+    $(KERNEL_MODULES_OUT)/audio_q6.ko \
+    $(KERNEL_MODULES_OUT)/audio_usf.ko \
+    $(KERNEL_MODULES_OUT)/audio_pinctrl_wcd.ko \
+    $(KERNEL_MODULES_OUT)/audio_pinctrl_lpi.ko \
+    $(KERNEL_MODULES_OUT)/audio_swr.ko \
+    $(KERNEL_MODULES_OUT)/audio_wcd_core.ko \
+    $(KERNEL_MODULES_OUT)/audio_swr_ctrl.ko \
+    $(KERNEL_MODULES_OUT)/audio_wsa881x.ko \
+    $(KERNEL_MODULES_OUT)/audio_platform.ko \
+    $(KERNEL_MODULES_OUT)/audio_cpe_lsm.ko \
+    $(KERNEL_MODULES_OUT)/audio_hdmi.ko \
+    $(KERNEL_MODULES_OUT)/audio_stub.ko \
+    $(KERNEL_MODULES_OUT)/audio_wcd9xxx.ko \
+    $(KERNEL_MODULES_OUT)/audio_mbhc.ko \
+    $(KERNEL_MODULES_OUT)/audio_wcd_spi.ko \
+    $(KERNEL_MODULES_OUT)/audio_wcd_cpe.ko \
+    $(KERNEL_MODULES_OUT)/audio_wcd9335.ko \
+    $(KERNEL_MODULES_OUT)/audio_wcd934x.ko \
+    $(KERNEL_MODULES_OUT)/audio_digital_cdc.ko \
+    $(KERNEL_MODULES_OUT)/audio_analog_cdc.ko \
+    $(KERNEL_MODULES_OUT)/audio_msm_sdw.ko \
+    $(KERNEL_MODULES_OUT)/audio_native.ko \
+    $(KERNEL_MODULES_OUT)/audio_machine_sdm710.ko \
+    $(KERNEL_MODULES_OUT)/qca_cld3_wlan.ko
+

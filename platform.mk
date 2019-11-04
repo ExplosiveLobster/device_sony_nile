@@ -16,7 +16,7 @@
 PLATFORM_COMMON_PATH := device/sony/nile
 
 SOMC_PLATFORM := nile
-SOMC_KERNEL_VERSION := 4.14
+SOMC_KERNEL_VERSION := 4.9
 KERNEL_PATH := kernel/sony/msm-$(SOMC_KERNEL_VERSION)
 
 $(call inherit-product, device/sony/common/common.mk)
@@ -51,7 +51,10 @@ PRODUCT_PACKAGES += \
     update_engine_client \
     update_engine_sideload \
     update_verifier \
-    bootctrl.sdm660
+    bootctrl.sdm660 \
+    hostapd_default.conf \
+    hostapd.accept \
+    hostapd.deny
 
 # Enable update engine sideloading by including the static version of the
 # boot_control HAL and its dependencies.
@@ -213,3 +216,5 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/platform/soc/c0c4000.sdhci/by-name/system
 PRODUCT_VENDOR_VERITY_PARTITION := /dev/block/platform/soc/c0c4000.sdhci/by-name/vendor
 $(call inherit-product, build/target/product/verity.mk)
+
+PRODUCT_PACKAGES += qca_cld3_wlan.ko
